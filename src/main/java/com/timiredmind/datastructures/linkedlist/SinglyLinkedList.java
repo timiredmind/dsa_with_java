@@ -9,7 +9,7 @@ public class SinglyLinkedList<E> {
 
 
     public SinglyLinkedList(E value) {
-        Objects.requireNonNull(value, "Value passed when creating instance of Linked List cannot be null");
+        Objects.requireNonNull(value, "Value of Node be null");
         Node<E> newNode = new Node<>(value);
         this.head = newNode;
         this.tail = newNode;
@@ -64,7 +64,7 @@ public class SinglyLinkedList<E> {
 
     // method to add new node to the already last node
     public void append(E value) {
-        Objects.requireNonNull(value, "Value of node to be appended to LinkedList cannot be null");
+        Objects.requireNonNull(value, "Value of Node be null");
         Node<E> newNode = new Node<>(value);
         if (this.length == 0) {
             this.head = newNode;
@@ -95,6 +95,20 @@ public class SinglyLinkedList<E> {
 
         length--;
         return temp;
+    }
+
+    public void prepend(E value) {
+        Objects.requireNonNull(value, "Value of Node be null");
+        Node<E> newNode = new Node<>(value);
+
+        if (length == 0) {
+            this.head = newNode;
+            this.tail = newNode;
+        } else {
+            newNode.next = this.head;
+            this.head = newNode;
+        }
+        length++;
     }
 
 }

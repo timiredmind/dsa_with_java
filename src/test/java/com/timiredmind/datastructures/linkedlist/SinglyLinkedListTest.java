@@ -38,7 +38,7 @@ public class SinglyLinkedListTest {
             new SinglyLinkedList<>(null);
         });
 
-        String expectedMessage = "Value passed when creating instance of Linked List cannot be null";
+        String expectedMessage = "Value of Node be null";
         assertEquals(exception.getMessage(), expectedMessage);
     }
 
@@ -92,7 +92,7 @@ public class SinglyLinkedListTest {
         });
 
         assertNotNull(exception);
-        String expectedMessage = "Value of node to be appended to LinkedList cannot be null";
+        String expectedMessage = "Value of Node be null";
         assertEquals(exception.getMessage(), expectedMessage);
     }
 
@@ -134,5 +134,46 @@ public class SinglyLinkedListTest {
         assertEquals(nodeRemoved.value, 1);
         assertNull(nodeRemoved.next);
         assertEquals(singlyLinkedList.getLength(), 0);
+    }
+
+    @Test
+    public void testPrependMethod() {
+        SinglyLinkedList<Integer> singlyLinkedList = new SinglyLinkedList<>(1);
+        SinglyLinkedList.Node<Integer> firstHead = singlyLinkedList.getHead();
+        SinglyLinkedList.Node<Integer> firstTail = singlyLinkedList.getTail();
+
+        singlyLinkedList.prepend(2);
+        SinglyLinkedList.Node<Integer> newHead = singlyLinkedList.getHead();
+        SinglyLinkedList.Node<Integer> newTail = singlyLinkedList.getTail();
+
+
+        assertEquals(newHead.value,  2);
+        assertNotEquals(newHead, firstHead);
+        assertEquals(firstTail, newTail);
+        assertEquals(singlyLinkedList.getLength(), 2);
+    }
+
+    @Test
+    public void testPrependMethodOnEmptyLinkedList() {
+        SinglyLinkedList<Integer> singlyLinkedList = new SinglyLinkedList<>();
+        singlyLinkedList.prepend(20);
+
+        SinglyLinkedList.Node<Integer> head = singlyLinkedList.getHead();
+        SinglyLinkedList.Node<Integer> tail = singlyLinkedList.getTail();
+        assertEquals(head, tail);
+        assertEquals(1, singlyLinkedList.getLength());
+    }
+
+    @Test
+    public void testPrependMethodWhenValueIsNull() {
+        SinglyLinkedList<Integer> singlyLinkedList = new SinglyLinkedList<>(1);
+
+        Exception exception = assertThrows(NullPointerException.class, () -> {
+            singlyLinkedList.prepend(null);
+        });
+
+        String expectedMessage = "Value of Node be null";
+        assertNotNull(exception);
+        assertEquals(exception.getMessage(), expectedMessage);
     }
 }
