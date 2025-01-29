@@ -135,4 +135,48 @@ public class SinglyLinkedList<E> {
         return current;
     }
 
+    public boolean set(long index, E value) {
+        Objects.requireNonNull(value, "Value of Node be null");
+        Node<E> node =  get(index);
+        if (node == null) return false;
+
+        node.value = value;
+        return true;
+    }
+
+    public boolean insert(long index, E value) {
+        Objects.requireNonNull(value, "Value of Node be null");
+
+        if (index < 0 || index > length) return false;
+        
+        if (index == 0) {
+            prepend(value);
+        }
+        else if (index == length) {
+            append(value);
+        } else {
+            Node<E> prev = get(index - 1);
+            prev.next = new Node<>(value, prev.next);
+            length++;
+        }
+        return true;
+    }
+
+    public Node<E> remove(long index) {
+        if (index < 0 || index >= length) return null;
+
+        if (index == 0) return removeFirst();
+
+        else if (index == length - 1) return removeLast();
+
+        Node<E> prev = get(index - 1);
+        Node<E> current = prev.next;
+
+        prev.next = current.next;
+        current.next = null;
+        length--;
+        return current;
+    }
+
+
 }

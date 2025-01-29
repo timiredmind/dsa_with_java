@@ -4,10 +4,12 @@ import org.junit.jupiter.api.Test;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SinglyLinkedListTest {
 
@@ -243,4 +245,152 @@ public class SinglyLinkedListTest {
         assertNotNull(singlyLinkedList.get(2));
         assertEquals(singlyLinkedList.get(2).value, 2);
     }
+
+
+    @Test
+    public void testSetMethodWhenValueIsNull() {
+        SinglyLinkedList<Integer> singlyLinkedList = new SinglyLinkedList<>(2);
+        Exception exception = assertThrows(NullPointerException.class, () -> {
+            singlyLinkedList.set(0, null);
+        });
+
+        assertNotNull(exception);
+        assertEquals(exception.getMessage(), "Value of Node be null");
+    }
+
+    @Test
+    public void testSetMethodForNegativeIndex() {
+        SinglyLinkedList<Integer> singlyLinkedList = new SinglyLinkedList<>(1);
+        assertFalse(singlyLinkedList.set(-1, 2));
+    }
+
+    @Test
+    public void testSetMethodForOutOfBoundIndex() {
+        SinglyLinkedList<Integer> singlyLinkedList = new SinglyLinkedList<>(1);
+        assertFalse(singlyLinkedList.set(3, 4));
+    }
+
+
+    @Test
+    public void testSetMethod() {
+        SinglyLinkedList<Integer> singlyLinkedList = new SinglyLinkedList<>(1);
+        singlyLinkedList.append(2);
+        assertTrue(singlyLinkedList.set(0, 10));
+        assertTrue(singlyLinkedList.set(1, 20));
+
+        assertEquals(singlyLinkedList.getHead().value, 10);
+        assertEquals(singlyLinkedList.getTail().value, 20);
+        assertEquals(singlyLinkedList.getLength(), 2);
+    }
+
+    @Test
+    public void testSetMethodForEmptyLinkedList() {
+        SinglyLinkedList<Integer> singlyLinkedList = new SinglyLinkedList<>();
+        assertFalse(singlyLinkedList.set(0, 3));
+    }
+
+    @Test
+    public void testInsertMethodForNegativeIndex() {
+        SinglyLinkedList<Integer> singlyLinkedList = new SinglyLinkedList<>();
+        assertFalse(singlyLinkedList.insert(-2, 0));
+    }
+
+    @Test
+    public void testInsertMethodForOutOfRangeMethod() {
+        SinglyLinkedList<Integer> singlyLinkedList = new SinglyLinkedList<>(2);
+        assertFalse(singlyLinkedList.insert(5, 5));
+    }
+
+    @Test
+    public void testInsertMethodForWhenValueIsNull() {
+        SinglyLinkedList<Integer> singlyLinkedList = new SinglyLinkedList<>(0);
+        singlyLinkedList.append(1);
+        singlyLinkedList.append(2);
+        Exception exception = assertThrows(NullPointerException.class, () ->
+                singlyLinkedList.insert(1, null));
+
+        assertNotNull(exception);
+        assertEquals(exception.getMessage(), "Value of Node be null");
+    }
+
+    @Test
+    public void testInsertMethodWhenIndexIsZero() {
+        SinglyLinkedList<Integer> singlyLinkedList = new SinglyLinkedList<>(0);
+
+        assertTrue(singlyLinkedList.insert(0, 2));
+        assertEquals(singlyLinkedList.getHead().value, 2);
+        assertEquals(singlyLinkedList.getTail().value, 0);
+        assertEquals(singlyLinkedList.getLength(), 2);
+    }
+
+    @Test
+    public void testInsertMethodWhenIndexIsLast() {
+        SinglyLinkedList<Integer> singlyLinkedList = new SinglyLinkedList<>(10);
+        singlyLinkedList.append(20);
+        singlyLinkedList.append(30);
+        singlyLinkedList.append(40);
+
+        singlyLinkedList.insert(4, 50);
+
+        assertEquals(singlyLinkedList.getHead().value, 10);
+        assertEquals(singlyLinkedList.getTail().value, 50);
+        assertEquals(singlyLinkedList.getLength(), 5);
+    }
+
+    @Test
+    public void testRemoveMethodForNegativeIndex() {
+        SinglyLinkedList<Integer> singlyLinkedList = new SinglyLinkedList<>(20);
+        assertNull(singlyLinkedList.remove(-1));
+    }
+
+    @Test
+    public void testRemoveMethodForOutOfBoundInteger() {
+        SinglyLinkedList<Integer> singlyLinkedList = new SinglyLinkedList<>(20);
+        assertNull(singlyLinkedList.remove(1));
+    }
+
+    @Test
+    public void testRemoveMethod() {
+        SinglyLinkedList<Integer> singlyLinkedList = new SinglyLinkedList<>(10);
+        singlyLinkedList.append(20);
+        singlyLinkedList.append(30);
+        singlyLinkedList.append(40);
+
+        SinglyLinkedList.Node<Integer> node = singlyLinkedList.remove(2);
+        assertNotNull(node);
+        assertEquals(node.value, 30);
+        assertNull(node.next);
+        assertEquals(singlyLinkedList.getLength(), 3);
+    }
+
+    @Test
+    public void testRemoveMethodWhenIndexIsZero() {
+        SinglyLinkedList<Integer> singlyLinkedList = new SinglyLinkedList<>(10);
+        singlyLinkedList.append(20);
+        singlyLinkedList.append(30);
+
+        SinglyLinkedList.Node<Integer> node = singlyLinkedList.remove(0);
+
+        assertNotNull(node);
+        assertNull(node.next);
+        assertEquals(node.value, 10);
+
+        assertEquals(singlyLinkedList.getHead().value, 20);
+        assertEquals(singlyLinkedList.getTail().value, 30);
+        assertEquals(singlyLinkedList.getLength(), 2);
+    }
+
+    @Test
+    public void testRemoveMethodWhenIndexIsLastIndex() {
+        SinglyLinkedList<Integer> singlyLinkedList = new SinglyLinkedList<>(10);
+        singlyLinkedList.append(20);
+
+        SinglyLinkedList.Node<Integer> node = singlyLinkedList.remove(1);
+        assertNotNull(node);
+        assertNull(node.next);
+        assertEquals(node.value, 20);
+        assertEquals(singlyLinkedList.getHead(), singlyLinkedList.getTail());
+        assertEquals(singlyLinkedList.getLength(), 1);
+    }
+
 }
