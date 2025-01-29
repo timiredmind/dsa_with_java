@@ -176,4 +176,71 @@ public class SinglyLinkedListTest {
         assertNotNull(exception);
         assertEquals(exception.getMessage(), expectedMessage);
     }
+
+    @Test
+    public void testRemoveFirstMethodWithSingleNode() {
+        SinglyLinkedList<Integer> singlyLinkedList = new SinglyLinkedList<>(20);
+        SinglyLinkedList.Node<Integer> firstNode = singlyLinkedList.removeFirst();
+
+        assertNull(singlyLinkedList.getHead());
+        assertNull(singlyLinkedList.getTail());
+        assertEquals(singlyLinkedList.getLength(), 0);
+        assertEquals(firstNode.value, 20);
+    }
+
+    @Test
+    public void testRemoveFirstMethodFromMultipleNodes() {
+        SinglyLinkedList<Integer> singlyLinkedList = new SinglyLinkedList<>(0);
+        singlyLinkedList.append(1);
+        singlyLinkedList.append(2);
+
+        SinglyLinkedList.Node<Integer> firstNode = singlyLinkedList.removeFirst();
+
+        assertNotNull(singlyLinkedList.getHead());
+        assertNotNull(singlyLinkedList.getTail());
+        assertEquals(singlyLinkedList.getHead().value, 1);
+        assertEquals(singlyLinkedList.getTail().value, 2);
+        assertEquals(singlyLinkedList.getLength(), 2);
+        assertEquals(firstNode.value, 0);
+    }
+
+    @Test
+    public void testRemoveFirstMethodOnEmptyList() {
+        SinglyLinkedList<Integer> singlyLinkedList = new SinglyLinkedList<>();
+        assertNull(singlyLinkedList.removeFirst());
+    }
+
+
+    @Test
+    public void testGetMethodForNegativeInteger() {
+        SinglyLinkedList<Integer> singlyLinkedList = new SinglyLinkedList<>(1);
+        assertNull(singlyLinkedList.get(-1));
+    }
+
+    @Test
+    public void testGetMethodWhenIndexIsOutOfBound() {
+        SinglyLinkedList<Integer> singlyLinkedList = new SinglyLinkedList<>(1);
+        assertNull(singlyLinkedList.get(5));
+    }
+
+    @Test
+    public void testGetMethodForEmptyLinkedList() {
+        SinglyLinkedList<Integer> singlyLinkedList = new SinglyLinkedList<>();
+        assertNull(singlyLinkedList.get(0));
+    }
+
+    @Test
+    public void testGetMethod() {
+        SinglyLinkedList<Integer> singlyLinkedList = new SinglyLinkedList<>(0);
+        singlyLinkedList.append(1);
+        singlyLinkedList.append(2);
+        assertNotNull(singlyLinkedList.get(0));
+        assertEquals(singlyLinkedList.get(0).value, 0);
+
+        assertNotNull(singlyLinkedList.get(1));
+        assertEquals(singlyLinkedList.get(1).value, 1);
+
+        assertNotNull(singlyLinkedList.get(2));
+        assertEquals(singlyLinkedList.get(2).value, 2);
+    }
 }

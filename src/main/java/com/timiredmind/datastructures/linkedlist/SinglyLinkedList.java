@@ -111,4 +111,28 @@ public class SinglyLinkedList<E> {
         length++;
     }
 
+    public Node<E> removeFirst() {
+        if (length == 0) return null;
+
+        Node<E> temp = this.head;
+        if (length == 1) {
+            this.tail = null;
+        }
+        this.head = this.head.next;
+        temp.next = null;
+        length--;
+        return temp;
+    }
+
+    public Node<E> get(long index) {
+        if (index < 0 || index >= length) return null;
+
+        Node<E> current = this.head;
+        for (int i = 0; i < index; i++) {
+            current = current.next;
+        }
+
+        return current;
+    }
+
 }
