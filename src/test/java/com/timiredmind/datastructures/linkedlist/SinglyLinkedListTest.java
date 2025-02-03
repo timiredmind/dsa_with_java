@@ -437,4 +437,39 @@ public class SinglyLinkedListTest {
 
         assertEquals(singlyLinkedList.getLength(), 1);
     }
+
+    @Test
+    public void testFindMiddleMethodForEmptyList() {
+        SinglyLinkedList<Integer> singlyLinkedList = new SinglyLinkedList<>();
+        assertNull(singlyLinkedList.findMiddleNode());
+    }
+
+    @Test
+    public void testFindMiddleMethodForSingleNodeList() {
+        SinglyLinkedList<Integer> singlyLinkedList = new SinglyLinkedList<>(1);
+        assertEquals(singlyLinkedList.findMiddleNode().value, 1);
+    }
+
+    @Test
+    public void testFindMiddleMethodForOddNodes() {
+        SinglyLinkedList<Integer> singlyLinkedList = new SinglyLinkedList<>(1);
+        singlyLinkedList.append(2);
+        singlyLinkedList.append(3);
+        singlyLinkedList.append(4);
+        singlyLinkedList.append(5);
+
+        assertEquals(singlyLinkedList.findMiddleNode().value, 3);
+    }
+
+    @Test
+    public void testFindMiddleMethodForEvenNodeList() {
+        SinglyLinkedList<Integer> singlyLinkedList = new SinglyLinkedList<>(1);
+        singlyLinkedList.append(2);
+        singlyLinkedList.append(3);
+        singlyLinkedList.append(4);
+        singlyLinkedList.append(5);
+        singlyLinkedList.append(6);
+
+        assertEquals(singlyLinkedList.findMiddleNode().value, 4);
+    }
 }

@@ -202,4 +202,20 @@ public class SinglyLinkedList<E> {
         }
         System.out.print("null");
     }
+
+
+    // finding the middle node without making use of the length instance variable
+    // making use of the Floyd's Tortoise and Hare algorithm
+    public Node<E> findMiddleNode() {
+        Node<E> slow = head;
+        Node<E> fast = head;
+
+        while(fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        return slow;
+    }
+
 }
