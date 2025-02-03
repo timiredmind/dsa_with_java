@@ -1,5 +1,6 @@
 package com.timiredmind.datastructures.linkedlist;
 
+import java.util.LinkedList;
 import org.junit.jupiter.api.Test;
 
 
@@ -472,4 +473,48 @@ public class SinglyLinkedListTest {
 
         assertEquals(singlyLinkedList.findMiddleNode().value, 4);
     }
+
+    @Test
+    public void testHasLoopMethodForEmptyLinkedList() {
+        SinglyLinkedList<Integer> singlyLinkedList = new SinglyLinkedList<>();
+        assertFalse(singlyLinkedList.hasLoop());
+    }
+
+    @Test
+    public void testHasLoopMethodForSingleNodeElement() {
+        SinglyLinkedList<Integer> singlyLinkedList = new SinglyLinkedList<>(1);
+        assertFalse(singlyLinkedList.hasLoop());
+    }
+
+    @Test
+    public void testHasLoopWithNoLoop() {
+        SinglyLinkedList<Integer> singlyLinkedList = new SinglyLinkedList<>(1);
+        singlyLinkedList.append(2);
+        singlyLinkedList.append(3);
+        singlyLinkedList.append(4);
+        assertFalse(singlyLinkedList.hasLoop());
+    }
+
+    @Test
+    public void testHasLoopWithLoopReturnsTrue() {
+        // Create a linked list with 8 elements
+        SinglyLinkedList<Integer> linkedList = new SinglyLinkedList<>(1);
+
+        for (int i = 2; i <= 8; i++) {
+            linkedList.append(i);
+        }
+
+        linkedList.getHead().next.next.next = linkedList.getHead().next;
+        assertTrue(linkedList.hasLoop());
+
+        SinglyLinkedList<Integer> secondHalf = new SinglyLinkedList<>(5);
+        secondHalf.append(6);
+        secondHalf.append(7);
+        secondHalf.append(8);
+
+
+        assertFalse(secondHalf.hasLoop());
+    }
+
+
 }
