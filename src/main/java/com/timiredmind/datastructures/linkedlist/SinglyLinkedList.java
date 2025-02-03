@@ -178,5 +178,28 @@ public class SinglyLinkedList<E> {
         return current;
     }
 
+    public void reverse() {
+        Node<E> current = this.head;
+        this.head = this.tail;
+        this.tail = current;
 
+        Node<E> after = null;
+        Node<E> before = null;
+
+        for (int i = 0; i < length; i++) {
+            after = current.next;
+            current.next = before;
+            before = current;
+            current = after;
+        }
+    }
+
+    public void printList() {
+        Node<E> temp = this.head;
+        for (int i = 0; i < length; i++) {
+            System.out.print(temp.value + " -> ");
+            temp = temp.next;
+        }
+        System.out.print("null");
+    }
 }

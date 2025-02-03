@@ -393,4 +393,48 @@ public class SinglyLinkedListTest {
         assertEquals(singlyLinkedList.getLength(), 1);
     }
 
+    @Test
+    public void testReverseMethod() {
+        SinglyLinkedList<Integer> singlyLinkedList = new SinglyLinkedList<>(10);
+        singlyLinkedList.append(20);
+        singlyLinkedList.append(30);
+        singlyLinkedList.append(40);
+
+        singlyLinkedList.reverse();
+        assertEquals(singlyLinkedList.getHead().value, 40);
+        assertEquals(singlyLinkedList.getTail().value, 10);
+        assertEquals(singlyLinkedList.getLength(), 4);
+
+        SinglyLinkedList.Node<Integer> current = singlyLinkedList.getHead();
+        int count = 40;
+
+        while(current != null) {
+            assertEquals(current.value, count);
+            current = current.next;
+            count-= 10;
+        }
+    }
+
+    @Test
+    public void testReverseMethodForEmptyList() {
+        SinglyLinkedList<Integer> singlyLinkedList = new SinglyLinkedList<>();
+
+        singlyLinkedList.reverse();
+        assertNull(singlyLinkedList.getHead());
+        assertNull(singlyLinkedList.getTail());
+        assertEquals(singlyLinkedList.getLength(), 0);
+    }
+
+    @Test
+    public void testReverseMethodForSingleNodeLinkedList() {
+        SinglyLinkedList<Integer> singlyLinkedList = new SinglyLinkedList<>(1);
+
+        singlyLinkedList.reverse();
+        assertEquals(singlyLinkedList.getHead().value, 1);
+        assertNull(singlyLinkedList.getHead().next);
+        assertEquals(singlyLinkedList.getTail().value, 1);
+        assertNull(singlyLinkedList.getTail().next);
+
+        assertEquals(singlyLinkedList.getLength(), 1);
+    }
 }
