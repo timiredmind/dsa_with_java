@@ -234,4 +234,31 @@ public class SinglyLinkedList<E> {
         return false;
     }
 
+    public Node<E> findKthFromEnd(int k) {
+//        Implement a method called findKthFromEnd that returns
+//        the k-th node from the end of the list.
+
+//        This implementation of the Linked List class does
+//        not make use of the length attribute
+
+        Node<E> current = this.head;
+        Node<E> forward = this.head;
+        for (int i = 0; i < k; i++) {
+            if (forward == null) {
+                return null;
+            }
+            forward = forward.next;
+
+        }
+
+        while (forward != null) {
+            current = current.next;
+            forward = forward.next;
+        }
+
+        assert current != null;
+        current.next = null;
+        return current;
+    }
+
 }

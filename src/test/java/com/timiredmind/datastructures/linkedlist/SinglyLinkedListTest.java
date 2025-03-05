@@ -516,5 +516,37 @@ public class SinglyLinkedListTest {
         assertFalse(secondHalf.hasLoop());
     }
 
+    @Test
+    public void testFindKthFromEndForEmptyList() {
+        SinglyLinkedList<Integer> singlyLinkedList = new SinglyLinkedList<>();
+        assertNull(singlyLinkedList.findKthFromEnd(1));
+    }
 
+    @Test
+    public void testFindKthFromEndForSingleNodeList() {
+        SinglyLinkedList<Integer> singlyLinkedList = new SinglyLinkedList<>(1);
+        assertEquals(singlyLinkedList.findKthFromEnd(1).value, 1);
+    }
+
+    @Test
+    public void testFindKthFromEndForLongerList() {
+        SinglyLinkedList<Integer> singlyLinkedList = new SinglyLinkedList<>(1);
+        singlyLinkedList.append(2);
+        singlyLinkedList.append(3);
+        singlyLinkedList.append(4);
+
+        assertEquals(singlyLinkedList.findKthFromEnd(2).value, 3);
+    }
+
+    @Test
+    public void testFindKthFromEndOutOfBoundsReturns() {
+        SinglyLinkedList<Integer> singlyLinkedList = new SinglyLinkedList<>(1);
+        singlyLinkedList.append(2);
+        singlyLinkedList.append(3);
+        singlyLinkedList.append(4);
+        singlyLinkedList.append(5);
+
+
+        assertNull(singlyLinkedList.findKthFromEnd(6));
+    }
 }
