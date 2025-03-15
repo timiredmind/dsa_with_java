@@ -1,5 +1,6 @@
 package com.timiredmind.datastructures.linkedlist;
 
+import java.util.HashSet;
 import java.util.Objects;
 
 public class SinglyLinkedList<E> {
@@ -196,11 +197,11 @@ public class SinglyLinkedList<E> {
 
     public void printList() {
         Node<E> temp = this.head;
-        for (int i = 0; i < length; i++) {
+        while (temp != null) {
             System.out.print(temp.value + " -> ");
             temp = temp.next;
         }
-        System.out.print("null");
+        System.out.println("null");
     }
 
 
@@ -259,6 +260,23 @@ public class SinglyLinkedList<E> {
         assert current != null;
         current.next = null;
         return current;
+    }
+
+    public void removeDuplicatesWithHashSet() {
+        HashSet<E> hashSet = new HashSet<>();
+        Node<E> prev = null;
+        Node<E> current = this.head;
+
+        while (current != null) {
+            if (!hashSet.contains(current.value)) {
+                hashSet.add(current.value);
+                prev = current;
+            } else {
+                prev.next = current.next;
+            }
+
+            current = current.next;
+        }
     }
 
 }

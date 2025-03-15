@@ -1,6 +1,5 @@
 package com.timiredmind.datastructures.linkedlist;
 
-import java.util.LinkedList;
 import org.junit.jupiter.api.Test;
 
 
