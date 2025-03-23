@@ -391,4 +391,57 @@ public class DoublyLinkedListTest {
         DoublyLinkedList<Integer> integerList = new DoublyLinkedList<>(10);
         assertFalse(integerList.insert(3, 20));
     }
+
+    @Test
+    public void testRemoveMethodForEmptyList() {
+        DoublyLinkedList<Integer> integerList = new DoublyLinkedList<>();
+        assertNull(integerList.remove(0));
+    }
+
+    @Test
+    public void testRemoveMethodForSingleList() {
+        DoublyLinkedList<Integer> integerList = new DoublyLinkedList<>(1);
+        assertEquals(integerList.remove(0).value, 1);
+
+        assertEquals(integerList.getLength(), 0);
+    }
+
+    @Test
+    public void testRemoveMethodForMultipleListForIndexZero() {
+        DoublyLinkedList<Integer> integerList = new DoublyLinkedList<>(1);
+        integerList.append(2);
+        integerList.append(3);
+        integerList.append(4);
+
+        assertEquals(integerList.remove(0).value, 1);
+        assertEquals(integerList.getLength(), 3);
+        assertEquals(integerList.getHead().value, 2);
+        assertEquals(integerList.getTail().value, 4);
+    }
+
+    @Test
+    public void testRemoveMethodForMultipleListForLastIndex() {
+        DoublyLinkedList<Integer> integerList = new DoublyLinkedList<>(0);
+        integerList.append(1);
+        integerList.append(2);
+        integerList.append(3);
+
+        assertEquals(integerList.remove(3).value, 3);
+        assertEquals(integerList.getLength(), 3);
+        assertEquals(integerList.getHead().value, 0);
+        assertEquals(integerList.getTail().value, 2);
+    }
+
+    @Test
+    public void testRemoveMethodForNegativeIndex() {
+        DoublyLinkedList<Integer> integerList = new DoublyLinkedList<>(1);
+        assertNull(integerList.remove(-2));
+    }
+
+    @Test
+    public void testRemoveMethodForOutOfBoundsIndex() {
+        DoublyLinkedList<Integer> integerList = new DoublyLinkedList<>(1);
+        assertNull(integerList.remove(2));
+
+    }
 }
