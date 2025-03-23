@@ -332,20 +332,63 @@ public class DoublyLinkedListTest {
         assertEquals(integerList.getTail().value, 1);
         assertEquals(integerList.getTail().prev.value, 10);
         assertNull(integerList.getTail().next);
+    }
 
-        assertEquals(integerList.getLength(), 2);
-
-        assertTrue(integerList.insert(2, 30));
+    @Test
+    public void testInsertMethodForMultipleElementListIntoIndexZero() {
+        DoublyLinkedList<Integer> integerList = new DoublyLinkedList<>(1);
+        integerList.append(2);
+        integerList.append(3);
 
         assertEquals(integerList.getLength(), 3);
-        assertEquals(integerList.getHead().value, 10);
-        assertNull(integerList.getHead().prev);
-        assertEquals(integerList.getHead().next.value, 1);
+        assertEquals(integerList.getHead().value, 1);
+        assertEquals(integerList.getTail().value, 3);
 
-        assertEquals(integerList.getTail().value, 30);
-        assertEquals(integerList.getTail().prev.value, 1);
-        assertNull(integerList.getTail().next);
+        assertTrue(integerList.insert(0, 0));
+
+        assertEquals(integerList.getLength(), 4);
+        assertEquals(integerList.getHead().value, 0);
+        assertEquals(integerList.getHead().next.value, 1);
+    }
+
+    @Test
+    public void testInsertMethodForMultipleElementListIntoLastIndex() {
+        DoublyLinkedList<Integer> integerList = new DoublyLinkedList<>(10);
+        integerList.append(20);
+        integerList.append(30);
+
+        assertEquals(integerList.getLength(), 3);
+
+        assertTrue(integerList.insert(3, 40));
+        assertEquals(integerList.getLength(), 4);
+        assertEquals(integerList.getTail().value, 40);
+        assertEquals(integerList.getHead().value, 10);
+    }
+
+    @Test
+    public void testInsertMethodForMultipleElementList() {
+        DoublyLinkedList<Integer> integerList = new DoublyLinkedList<>(10);
+        integerList.append(20);
+        integerList.append(30);
+
+        assertEquals(integerList.getLength(), 3);
+
+        assertTrue(integerList.insert(2, 25));
+        assertEquals(integerList.getLength(), 4);
+
+        assertEquals(integerList.get(2).value, 25);
+    }
+
+    @Test
+    public void testInsertMethodForNegativeIndex() {
+        DoublyLinkedList<Integer> integerList = new DoublyLinkedList<>(10);
+        assertFalse(integerList.insert(-1 , 20));
     }
 
 
+    @Test
+    public void testInsertMethodForIndexMoreThanLength() {
+        DoublyLinkedList<Integer> integerList = new DoublyLinkedList<>(10);
+        assertFalse(integerList.insert(3, 20));
+    }
 }
